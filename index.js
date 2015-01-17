@@ -29,7 +29,10 @@ function Gauge(el, options) {
 	this.el = el;
 	this.el.classList.add('gauge');
 	this.el.innerHTML = [
-		'<svg class="gauge-colors" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>',
+		'<svg class="gauge-colors" version="1.1" xmlns="http://www.w3.org/2000/svg">',
+		'<rect width="100%" height="100%" opacity="0"/>', //Firefix
+		'</svg>',
+		'<div class="gauge-marks"></div>',
 		'<div class="gauge-values"></div>',
 		'<div class="gauge-arrow"></div>'
 	].join('');
@@ -43,6 +46,7 @@ function Gauge(el, options) {
 	//economics
 	this.createColors();
 	this.createValues();
+	this.createMarks();
 
 	//render
 	this.update();
@@ -63,12 +67,6 @@ var proto = Gauge.prototype = Object.create(Emitter.prototype);
 
 
 /**
- * Values placement
- */
-proto.inset = true;
-
-
-/**
  * Start/end angles
  */
 proto.angle = [150, 390];
@@ -86,6 +84,12 @@ proto.values = (function(){
 	return res;
 })();
 proto.values[100] = 10;
+
+
+/**
+ * List of marks to show
+ */
+proto.marks = Object.keys(proto.values).map(parseFloat);
 
 
 /**
@@ -116,6 +120,17 @@ proto.setValue = function(v){
 
 	this.value = v;
 };
+
+
+/**
+ * Create notches
+ */
+proto.createMarks = function(){
+	for (var i = 0; i < this.marks.length; i++){
+
+	}
+};
+
 
 
 /**
@@ -173,21 +188,22 @@ proto.createColors = function(){
  */
 proto.update = function(){
 	var w = this.el.clientWidth, h = this.el.clientHeight;
+	var cw = this.colorsEl.clientWidth || w, ch = this.colorsEl.clientHeight || h;
 
 	//for each color update path coords
 	var lastColor = '',
 		lastAngle = this.angle[0],
-		lastCoords = getAngleCoords(lastAngle, w, h),
+		lastCoords = getAngleCoords(lastAngle, cw, ch),
 		lastPath,
 		reverse = this.angle[0] > this.angle[1];
 
 	this.walk(this.colors, function(percent, angle){
-		var d, coords = getAngleCoords(angle, w, h);
+		var d, coords = getAngleCoords(angle, cw, ch);
 
 		//ignore first step
 		if (lastPath) {
 			//color arc to a new step
-			d = 'M ' + lastCoords + ' A ' + w/2 + ' ' + h/2 + ' 0 ' + (Math.abs(angle - lastAngle) > 180 ? 1 : 0) + ' ' + (reverse ? 0 : 1) + ' ' + coords;
+			d = 'M ' + lastCoords + ' A ' + cw/2 + ' ' + ch/2 + ' 0 ' + (Math.abs(angle - lastAngle) > 180 ? 1 : 0) + ' ' + (reverse ? 0 : 1) + ' ' + coords;
 			lastPath.setAttribute('d', d);
 			lastPath.setAttribute('stroke', lastColor);
 		}
@@ -201,21 +217,21 @@ proto.update = function(){
 	//append max → 100 arc
 	var endAngle = this.angle[1];
 	lastPath.setAttribute('stroke', lastColor);
-	lastPath.setAttribute('d', 'M ' + lastCoords + ' A ' + w/2 + ' ' + h/2 + ' 0 ' + (Math.abs(endAngle - lastAngle) > 180 ? 1 : 0) + ' 1 ' + getAngleCoords(endAngle, w, h));
+	lastPath.setAttribute('d', 'M ' + lastCoords + ' A ' + cw/2 + ' ' + ch/2 + ' 0 ' + (Math.abs(endAngle - lastAngle) > 180 ? 1 : 0) + ' 1 ' + getAngleCoords(endAngle, cw, ch));
 
 
 	//for each color update marks
-	var wGap = w * .2, hGap = h * .2;
+	var vw = this.valuesEl.clientWidth, vh = this.valuesEl.clientHeight;
 
-	if (this.inset) wGap = -wGap, hGap = -hGap;
+	// if (this.inset) wGap = -wGap, hGap = -hGap;
 
 	this.walk(this.values, function(percent, angle){
-		var coords = getAngleCoords(angle, w + wGap, h + hGap);
+		var coords = getAngleCoords(angle, vw, vh);
 		var valueEl = this.valuesEls[percent];
 
 		css(valueEl, {
-			left: coords[0] - wGap/2 - valueEl.clientWidth/2,
-			top: coords[1] - hGap/2 - valueEl.clientHeight/2
+			left: coords[0] - valueEl.clientWidth/2,
+			top: coords[1] - valueEl.clientHeight/2
 		});
 	});
 };

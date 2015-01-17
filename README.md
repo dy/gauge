@@ -1,14 +1,14 @@
 # gauge [![Code Climate](https://codeclimate.com/github/dfcreative/gauge/badges/gpa.svg)](https://codeclimate.com/github/dfcreative/gauge) ![size](https://img.shields.io/badge/size-1.35kb-brightgreen.svg) <a href="UNLICENSE"><img src="http://upload.wikimedia.org/wikipedia/commons/6/62/PD-icon.svg" width="20"/></a>
 
-A simple circular gauge component.
+A simple circular gauge indicator component.
 
-[image]
+[Live demo](https://rawgit.com/dfcreative/gauge/blob/master/test/index.html).
 
-[demo]
 
 ## Installation
 
 `$ npm install component-gauge`
+
 
 ## Example
 
@@ -30,16 +30,25 @@ Create a new Gauge component.
 
 Update gauge rings & marks position.
 
+### Gauge.prototype.setValue(value)
+
+Set new gauge percent value, `0..100`.
+
 
 # Options
 
 | Param | Default | Description |
 |---|---|---|
 | `angle` | `[150, 390]` | Start and end angles defining gauge’s aperture |
-| `values` | `{}` | Dict of labels corresponding to percentage values |
-| `colors` | `{}` | Dict of colors corresponding to values |
-| `inset` | `false` | Start and end angles defining gauge’s aperture |
-| `value` | `50` | Current percentage value |
+| `values` | `{0: }` | Dict of labels corresponding to percentage values |
+| `colors` | `{0:'gray', 70:'orange', 90:'red'}` | Dict of colors corresponding to percentage |
+| `value` | `0` | Initial percentage value |
+
+
+# CSS
+
+There are a bunch of styles you can tack to adjust gauge view. Look into [index.css](index.css).
+For example, you can adjust arrow shape and visibility, inset/outset of values and marks.
 
 
 [![NPM](https://nodei.co/npm/component-gauge.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/component-gauge/)

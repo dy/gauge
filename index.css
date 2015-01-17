@@ -3,35 +3,46 @@
 	width: 30vw;
 	height: 30vw;
 }
-.gauge-colors, .gauge-values{
+.gauge-colors, .gauge-values, .gauge-marks{
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
+	bottom: 0;
+	right: 0;
 	overflow: visible;
 	font-family: sans-serif;
 }
+.gauge-marks{
+	/* Adjust marks offset/color/visibility in there */
+	margin: 18px;
+}
+.gauge-values{
+	/* Adjust labels offset by this, including inset/outset */
+	margin: -20px;
+}
 .gauge-colors{
-
+	width: 100%;
+	height: 100%;
+	left: 0%;
+	top: 0%;
 }
 .gauge-color{
-	stroke-width: 5;
+	stroke-width: 4;
 	fill: transparent;
-}
-.gauge-color{
-
 }
 .gauge-value{
 	position: absolute;
 }
 .gauge-arrow{
+	/* Hide arrow by this */
 	position: absolute;
 	top: 0%;
 	left: 50%;
 	margin-left: -10px;
 	width: 20px;
 	height: 50%;
+
+	/* Change arrow style through this */
 	background: url(./arrow.svg) no-repeat 0 100%;
 	background-size: 100% 50%;
 
