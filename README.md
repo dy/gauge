@@ -1,4 +1,4 @@
-# component-gauge  [![Build Status](https://travis-ci.org/dfcreative/component-gauge.svg?branch=master)](https://travis-ci.org/dfcreative/component-gauge) [![Code Climate](https://codeclimate.com/github/dfcreative/component-gauge/badges/gpa.svg)](https://codeclimate.com/github/dfcreative/component-gauge) ![size](https://img.shields.io/badge/size-1.35kb-brightgreen.svg) <a href="UNLICENSE"><img src="http://upload.wikimedia.org/wikipedia/commons/6/62/PD-icon.svg" width="20"/></a>
+# component-gauge [![Code Climate](https://codeclimate.com/github/dfcreative/component-gauge/badges/gpa.svg)](https://codeclimate.com/github/dfcreative/component-gauge) ![size](https://img.shields.io/badge/size-1.35kb-brightgreen.svg) <a href="UNLICENSE"><img src="http://upload.wikimedia.org/wikipedia/commons/6/62/PD-icon.svg" width="20"/></a>
 
 A simple circular gauge component.
 
