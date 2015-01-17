@@ -1,6 +1,6 @@
 {
   "name": "component-gauge",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Simple circular gauge indicator component",
   "main": "index.js",
   "directories": {
