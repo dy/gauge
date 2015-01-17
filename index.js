@@ -4,7 +4,6 @@
  * @module  gauge
  */
 
-
 var Emitter = require('component-emitter');
 var extend = require('xtend');
 
@@ -15,7 +14,6 @@ var doc = document;
 /**
  * Gauge component constructor
  */
-
 function Gauge(el, options) {
 	//ensure proper el is passed
 	if (!(el instanceof HTMLElement)) throw Error('Bad target element');
@@ -56,21 +54,18 @@ function Gauge(el, options) {
 /**
  * Gauge prototype
  */
-
 var proto = Gauge.prototype = Object.create(Emitter.prototype);
 
 
 /**
  * Values placement
  */
-
 proto.inset = true;
 
 
 /**
  * Start/end angles
  */
-
 proto.angle = [150, 390];
 
 
@@ -78,7 +73,6 @@ proto.angle = [150, 390];
  * List of marks values
  * `{ percent: value }`
  */
-
 proto.values = (function(){
 	var res = {};
 	for (var i = 0; i < 9; i++) {
@@ -93,7 +87,6 @@ proto.values[100] = 10;
  * Colors for circumferent line, clockwise
  * `{ percent: color }`
  */
-
 proto.colors = {
 	0: 'gray',
 	60: 'yellow',
@@ -104,7 +97,6 @@ proto.colors = {
 /**
  * Current gauge value & setter
  */
-
 proto.value = 30;
 proto.setValue = function(v){
 	//notify change
@@ -117,7 +109,6 @@ proto.setValue = function(v){
 /**
  * Mark gauge according to values
  */
-
 proto.createValues = function(){
 	//for each mark value - place proper text label on a circle line
 	var value, valueEl, d;
@@ -144,7 +135,6 @@ proto.createValues = function(){
 /**
  * Create colors based on marks list
  */
-
 proto.createColors = function(){
 	var color, colorEl, d;
 
@@ -169,7 +159,6 @@ proto.createColors = function(){
 /**
  * Update colors & marks size/position
  */
-
 proto.update = function(){
 	var w = this.el.clientWidth, h = this.el.clientHeight;
 
@@ -222,7 +211,6 @@ proto.update = function(){
 /**
  * Walk by circle calling an fn with angle
  */
-
 proto.walk = function(obj, fn){
 	var angle, aRange = this.angle[1] - this.angle[0], that = this;
 
@@ -236,8 +224,7 @@ proto.walk = function(obj, fn){
 };
 
 
-/** Get clean angle */
-function ang(a){
+/** Get clean angle */function ang(a){
 	return (a + 360)%360;
 }
 
@@ -245,7 +232,6 @@ function ang(a){
 /**
  * Get coords of an angle
  */
-
 function getAngleCoords(angle, w, h){
 	return [
 		Math.cos(angle) * w/2 + w/2,
