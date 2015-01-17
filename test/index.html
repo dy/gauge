@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="../index.css"/>
+<style>
+	body {
+		background: #f3f3f3;
+	}
+	.gauge{
+		outline: 1px solid gray;
+	}
+</style>
+
+
+<div class="gauge"></div>
+<div class="gauge"></div>
+
+<script src="../node_modules/require-stub/index.js"></script>
+
+<script>
+	var Gauge = require('..');
+	var q = require('query-relative');
+
+	var els = q.all('.gauge');
+
+	var g1 = new Gauge(els[0], {
+		inset: true,
+		colors: {
+			0: 'red',
+			20: 'green',
+			40: 'blue'
+		}
+	});
+</script>
