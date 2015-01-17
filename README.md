@@ -14,7 +14,9 @@ A simple circular gauge component.
 
 ```js
 var Gauge = require('component-gauge');
-var gauge = new Gauge(el, options);
+var q = require('query');
+
+var gauge = new Gauge(q('.gauge'), options);
 ```
 
 
@@ -27,6 +29,17 @@ Create a new Gauge component.
 ### Gauge.prototype.update()
 
 Update gauge rings & marks position.
+
+
+# Options
+
+| Param | Default | Description |
+|---|---|---|
+| `angle` | `[150, 390]` | Start and end angles defining gauge’s aperture |
+| `values` | `{}` | Dict of labels corresponding to percentage values |
+| `colors` | `{}` | Dict of colors corresponding to values |
+| `inset` | `false` | Start and end angles defining gauge’s aperture |
+| `value` | `50` | Current percentage value |
 
 
 [![NPM](https://nodei.co/npm/component-gauge.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/component-gauge/)

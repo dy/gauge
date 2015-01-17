@@ -2,30 +2,43 @@
 <style>
 	body {
 		background: #f3f3f3;
+		font-family: sans-serif;
 	}
 	.gauge{
-		outline: 1px solid gray;
+		outline: 1px solid rgba(0,0,0,.05);
 	}
 </style>
 
+<h2>Default example</h2>
+<div class="gauge"></div>
+<input value="0" min="0" max="100" type="range" id="value"></input>
 
+<h2>Custom example</h2>
 <div class="gauge"></div>
-<div class="gauge"></div>
+
 
 <script src="../node_modules/require-stub/index.js"></script>
 
 <script>
+	//init gauge
 	var Gauge = require('..');
 	var q = require('query-relative');
 
 	var els = q.all('.gauge');
 
-	var g1 = new Gauge(els[0], {
+	var g = new Gauge(els[0], {
 		inset: true,
 		colors: {
 			0: 'red',
 			20: 'green',
 			40: 'blue'
 		}
+	});
+
+
+
+	//hook up slider
+	q('#value').addEventListener('input', function(e){
+		g.setValue(this.value);
 	});
 </script>

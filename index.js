@@ -6,6 +6,7 @@
 
 var Emitter = require('component-emitter');
 var extend = require('xtend');
+var css = require('mucss/css');
 
 
 var doc = document;
@@ -21,20 +22,23 @@ function Gauge(el, options) {
 	//ensure instance
 	if (!(this instanceof Gauge)) return new Gauge(el, options);
 
+	//adopt options
+	extend(this, options);
+
 	//save element
 	this.el = el;
-	this.el.className = 'gauge';
+	this.el.classList.add('gauge');
 	this.el.innerHTML = [
 		'<svg class="gauge-colors" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>',
-		'<div class="gauge-values"></div>'
+		'<div class="gauge-values"></div>',
+		'<div class="gauge-arrow"></div>'
 	].join('');
 
 	//save references
 	this.colorsEl = this.el.querySelector('.gauge-colors');
 	this.valuesEl = this.el.querySelector('.gauge-values');
+	this.arrowEl = this.el.querySelector('.gauge-arrow');
 
-	//adopt options
-	extend(this, options);
 
 	//economics
 	this.createColors();
@@ -42,6 +46,7 @@ function Gauge(el, options) {
 
 	//render
 	this.update();
+	this.setValue(this.value);
 
 	//bind to window resize
 	var that = this;
@@ -75,8 +80,8 @@ proto.angle = [150, 390];
  */
 proto.values = (function(){
 	var res = {};
-	for (var i = 0; i < 9; i++) {
-		res[~~(100*i/9)] = i;
+	for (var i = 0; i < 10; i++) {
+		res[~~(100*i/10)] = i;
 	}
 	return res;
 })();
@@ -88,19 +93,26 @@ proto.values[100] = 10;
  * `{ percent: color }`
  */
 proto.colors = {
-	0: 'gray',
-	60: 'yellow',
-	85: 'red'
+	0: '#666',
+	60: '#ffa500',
+	80: 'red'
 };
 
 
 /**
  * Current gauge value & setter
  */
-proto.value = 30;
+proto.value = 0;
 proto.setValue = function(v){
 	//notify change
 	this.emit('change');
+
+	//find out proper angle, set it
+	this.value = +v;
+	var angle = getPercentAngle(this.value, this.angle);
+	css(this.arrowEl, {
+		transform: 'rotate(' + (angle + 90) + 'deg)'
+	});
 
 	this.value = v;
 };
@@ -175,7 +187,7 @@ proto.update = function(){
 		//ignore first step
 		if (lastPath) {
 			//color arc to a new step
-			d = 'M ' + lastCoords + ' A ' + w/2 + ' ' + h/2 + ' 0 ' + (Math.abs(angle - lastAngle) > Math.PI ? 1 : 0) + ' ' + (reverse ? 0 : 1) + ' ' + coords;
+			d = 'M ' + lastCoords + ' A ' + w/2 + ' ' + h/2 + ' 0 ' + (Math.abs(angle - lastAngle) > 180 ? 1 : 0) + ' ' + (reverse ? 0 : 1) + ' ' + coords;
 			lastPath.setAttribute('d', d);
 			lastPath.setAttribute('stroke', lastColor);
 		}
@@ -187,11 +199,10 @@ proto.update = function(){
 	});
 
 	//append max → 100 arc
-	var endAngle = this.angle[1] * Math.PI/180;
+	var endAngle = this.angle[1];
 	lastPath.setAttribute('stroke', lastColor);
 	lastPath.setAttribute('d', 'M ' + lastCoords + ' A ' + w/2 + ' ' + h/2 + ' 0 ' + (Math.abs(endAngle - lastAngle) > 180 ? 1 : 0) + ' 1 ' + getAngleCoords(endAngle, w, h));
 
-	console.log('---')
 
 	//for each color update marks
 	var wGap = w * .2, hGap = h * .2;
@@ -202,8 +213,10 @@ proto.update = function(){
 		var coords = getAngleCoords(angle, w + wGap, h + hGap);
 		var valueEl = this.valuesEls[percent];
 
-		valueEl.style.left = coords[0] - wGap/2 - valueEl.clientWidth/2 + 'px';
-		valueEl.style.top = coords[1] - hGap/2 - valueEl.clientHeight/2 + 'px';
+		css(valueEl, {
+			left: coords[0] - wGap/2 - valueEl.clientWidth/2,
+			top: coords[1] - hGap/2 - valueEl.clientHeight/2
+		});
 	});
 };
 
@@ -212,20 +225,23 @@ proto.update = function(){
  * Walk by circle calling an fn with angle
  */
 proto.walk = function(obj, fn){
-	var angle, aRange = this.angle[1] - this.angle[0], that = this;
+	var angle, that = this;
 
 	//sort percents
 	var percents = Object.keys(obj).map(parseFloat).sort()
 
 	.forEach(function(percent){
-		angle = ((percent * .01) * aRange + that.angle[0]) * Math.PI/180;
+		angle = getPercentAngle(percent, that.angle);
 		fn.call(that, percent, angle);
 	});
 };
 
 
-/** Get clean angle */function ang(a){
-	return (a + 360)%360;
+/**
+ * Get degrees angle for percent from range
+ */
+function getPercentAngle(percent, range){
+	return ((percent * .01) * (range[1] - range[0]) + range[0]);
 }
 
 
@@ -233,6 +249,8 @@ proto.walk = function(obj, fn){
  * Get coords of an angle
  */
 function getAngleCoords(angle, w, h){
+	//to rads
+	angle *= Math.PI/180;
 	return [
 		Math.cos(angle) * w/2 + w/2,
 		Math.sin(angle) * h/2 + h/2

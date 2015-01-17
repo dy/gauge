@@ -6,6 +6,10 @@
   "directories": {
     "test": "test"
   },
+  "files": [
+    "index.js",
+    "index.css"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,6 +33,7 @@
   },
   "dependencies": {
     "xtend": "~4.0.0",
-    "component-emitter": "~1.1.3"
+    "component-emitter": "~1.1.3",
+    "mucss": "~0.5.9"
   }
 }
