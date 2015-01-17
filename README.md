@@ -14,14 +14,13 @@ A simple circular gauge component.
 
 ```js
 var Gauge = require('component-gauge');
-var gauge = new Gauge;
-gauge.el.appendTo('body');
+var gauge = new Gauge(el, options);
 ```
 
 
 # API
 
-### new Gauge(options)
+### new Gauge(el, options)
 
 Create a new Gauge component.
 
