@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "build": "browserify -s Gauge index.js > gauge.js",
+    "min": "ccjs gauge.js > gauge.min.js",
     "build-test": "browserify -r query-relative > test/bundle.js"
   },
   "repository": {
