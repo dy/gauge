@@ -6,7 +6,7 @@
  */
 
 var Emitter = require('component-emitter');
-var extend = require('xtend');
+var extend = require('xtend/mutable');
 var css = require('mucss/css');
 
 
@@ -299,7 +299,7 @@ function getAngleCoords(angle, w, h){
 
 
 module.exports = Gauge;
-},{"component-emitter":2,"mucss/css":3,"xtend":6}],2:[function(require,module,exports){
+},{"component-emitter":2,"mucss/css":3,"xtend/mutable":6}],2:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -541,10 +541,8 @@ module.exports = {
 },{}],6:[function(require,module,exports){
 module.exports = extend
 
-function extend() {
-    var target = {}
-
-    for (var i = 0; i < arguments.length; i++) {
+function extend(target) {
+    for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i]
 
         for (var key in source) {

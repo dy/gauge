@@ -26,9 +26,10 @@
 <label for="value">Value: <input value="0" min="0" max="100" type="range" id="value" name="value"></input></label>
 
 
-<script src="../node_modules/require-stub/index.js"></script>
-<!-- <script src="./bundle.js"></script> -->
-<!-- <script src="../gauge.min.js"></script> -->
+
+<!-- <script src="../node_modules/require-stub/index.js"></script> -->
+<script src="./bundle.js"></script>
+<script src="../gauge.min.js"></script>
 
 <script>
 	//init gauge
@@ -38,12 +39,13 @@
 	var els = q.all('.gauge');
 
 	var g = new Gauge(els[0], {
-		inset: true,
-		colors: {
-			0: 'red',
-			20: 'green',
-			40: 'blue'
-		}
+		// colors: {
+		// 	0: '#888',
+		// 	40: '#666',
+		// 	60: '#aaa500',
+		// 	80: '#ffa500',
+		// 	90: 'red',
+		// }
 	});
 
 

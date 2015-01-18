@@ -1,4 +1,4 @@
-# gauge [![Code Climate](https://codeclimate.com/github/dfcreative/gauge/badges/gpa.svg)](https://codeclimate.com/github/dfcreative/gauge) ![size](https://img.shields.io/badge/size-2.5kb-brightgreen.svg) <a href="UNLICENSE"><img src="http://upload.wikimedia.org/wikipedia/commons/6/62/PD-icon.svg" width="20"/></a>
+# gauge [![Code Climate](https://codeclimate.com/github/dfcreative/gauge/badges/gpa.svg)](https://codeclimate.com/github/dfcreative/gauge) ![size](https://img.shields.io/badge/size-2.4kb-brightgreen.svg) <a href="UNLICENSE"><img src="http://upload.wikimedia.org/wikipedia/commons/6/62/PD-icon.svg" width="20"/></a>
 
 A simple circular gauge indicator component.
 
@@ -30,11 +30,11 @@ Create a new Gauge component.
 
 ### Gauge.prototype.update()
 
-Update gauge rings & marks position.
+Update gauge rings, marks & labels position.
 
-### Gauge.prototype.setValue(value)
+### Gauge.prototype.value
 
-Set new gauge percent value, `0..100`.
+Current gauge percent value, `0..100`.
 
 
 # Options
@@ -42,8 +42,9 @@ Set new gauge percent value, `0..100`.
 | Param | Default | Description |
 |---|---|---|
 | `angle` | `[150, 390]` | Start and end angles defining gauge’s aperture |
-| `values` | `{0: }` | Dict of labels corresponding to percentage values |
+| `values` | `{0: 'start', 100: 'end'}` | Dict of labels corresponding to percentage values |
 | `colors` | `{0:'gray', 70:'orange', 90:'red'}` | Dict of colors corresponding to percentage |
+| `marks` | [0,10,..100] | List of marks |
 | `value` | `0` | Initial percentage value |
 
 

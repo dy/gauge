@@ -5,7 +5,7 @@
  */
 
 var Emitter = require('component-emitter');
-var extend = require('xtend');
+var extend = require('xtend/mutable');
 var css = require('mucss/css');
 
 

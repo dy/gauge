@@ -50,7 +50,7 @@
 
 	/* Change arrow shape/color in arrow.svg */
 	background: url(./arrow.svg) no-repeat 0 100%;
-	background-size: 100% 50%;
+	background-size: 100% 55%;
 
 	-webkit-transform: rotate(0deg);
 	-moz-transform: rotate(0deg);
