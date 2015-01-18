@@ -41,6 +41,7 @@ function Gauge(el, options) {
 	this.colorsEl = this.el.querySelector('.gauge-colors');
 	this.valuesEl = this.el.querySelector('.gauge-values');
 	this.arrowEl = this.el.querySelector('.gauge-arrow');
+	this.marksEl = this.el.querySelector('.gauge-marks');
 
 
 	//economics
@@ -87,7 +88,7 @@ proto.values[100] = 10;
 
 
 /**
- * List of marks to show
+ * List of marks to show.
  */
 proto.marks = Object.keys(proto.values).map(parseFloat);
 
@@ -124,10 +125,20 @@ proto.setValue = function(v){
 
 /**
  * Create notches
+ * CSS-rotated rectangles are far more customizable than SVG-lines
  */
 proto.createMarks = function(){
-	for (var i = 0; i < this.marks.length; i++){
+	var markEl;
 
+	//list of marks els per angle
+	this.marksEls = {};
+
+	for (var i = 0; i < this.marks.length; i++){
+		markEl = doc.createElement('span');
+		markEl.className = 'gauge-mark';
+
+		this.marksEls[this.marks[i]] = markEl;
+		this.marksEl.appendChild(markEl);
 	}
 };
 
@@ -190,7 +201,7 @@ proto.update = function(){
 	var w = this.el.clientWidth, h = this.el.clientHeight;
 	var cw = this.colorsEl.clientWidth || w, ch = this.colorsEl.clientHeight || h;
 
-	//for each color update path coords
+	//1. Update colors
 	var lastColor = '',
 		lastAngle = this.angle[0],
 		lastCoords = getAngleCoords(lastAngle, cw, ch),
@@ -220,10 +231,8 @@ proto.update = function(){
 	lastPath.setAttribute('d', 'M ' + lastCoords + ' A ' + cw/2 + ' ' + ch/2 + ' 0 ' + (Math.abs(endAngle - lastAngle) > 180 ? 1 : 0) + ' 1 ' + getAngleCoords(endAngle, cw, ch));
 
 
-	//for each color update marks
+	//2. Update values
 	var vw = this.valuesEl.clientWidth, vh = this.valuesEl.clientHeight;
-
-	// if (this.inset) wGap = -wGap, hGap = -hGap;
 
 	this.walk(this.values, function(percent, angle){
 		var coords = getAngleCoords(angle, vw, vh);
@@ -232,6 +241,20 @@ proto.update = function(){
 		css(valueEl, {
 			left: coords[0] - valueEl.clientWidth/2,
 			top: coords[1] - valueEl.clientHeight/2
+		});
+	});
+
+
+	//3. Update marks
+	var mw = this.marksEl.clientWidth, mh = this.marksEl.clientHeight;
+	this.walk(this.marksEls, function(percent, angle){
+		var coords = getAngleCoords(angle, mw, mh);
+		var markEl = this.marksEls[percent];
+
+		css(markEl, {
+			transform: 'rotate(' + (angle + 90) + 'deg)',
+			left: coords[0] - markEl.clientWidth/2,
+			top: coords[1] - markEl.clientHeight/2
 		});
 	});
 };

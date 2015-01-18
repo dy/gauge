@@ -11,18 +11,24 @@
 	.gauge{
 		margin: 50px auto 20px;
 		font-size: 14px;
-		/*outline: 1px solid rgba(0,0,0,.05);*/
+		/*outline: 1px solid rgba(0,0,0,.1);*/
+	}
+	input[type=range]{
+		display: inline-block;
+		vertical-align: middle;
 	}
 </style>
 
 <h2>Gauge</h2>
 <div class="gauge"></div>
-<input value="0" min="0" max="100" type="range" id="value"></input>
 
 
-<!-- <script src="../node_modules/require-stub/index.js"></script> -->
-<script src="./bundle.js"></script>
-<script src="../gauge.min.js"></script>
+<label for="value">Value: <input value="0" min="0" max="100" type="range" id="value" name="value"></input></label>
+
+
+<script src="../node_modules/require-stub/index.js"></script>
+<!-- <script src="./bundle.js"></script> -->
+<!-- <script src="../gauge.min.js"></script> -->
 
 <script>
 	//init gauge

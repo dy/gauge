@@ -12,8 +12,8 @@
     "arrow.svg"
   ],
   "scripts": {
-    "build": "browserify -s Gauge index.js > gauge.js",
-    "min": "ccjs gauge.js > gauge.min.js",
+    "build": "browserify -s Gauge index.js > gauge.dev.js",
+    "min": "ccjs gauge.dev.js > gauge.min.js && cat gauge.min.js | gzip-size",
     "build-test": "browserify -r query-relative > test/bundle.js"
   },
   "repository": {
@@ -22,7 +22,10 @@
   },
   "keywords": [
     "gauge",
-    "component"
+    "component",
+    "indicator",
+    "scale",
+    "progress"
   ],
   "author": "Deema Ywanov <df.creative@gmail.com>",
   "license": "Unlicensed",
