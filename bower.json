@@ -1,0 +1,23 @@
+{
+  "name": "gauge",
+  "main": "index.js",
+  "version": "1.1.0",
+  "homepage": "https://github.com/dfcreative/gauge",
+  "authors": [
+    "Dmitry <df.creative@gmail.com>"
+  ],
+  "description": "Circular indicator component",
+  "keywords": [
+    "gauge",
+    "indicator",
+    "component"
+  ],
+  "license": "Unlicensed",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

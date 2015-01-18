@@ -11,6 +11,10 @@ A simple circular gauge indicator component.
 
 `$ npm install component-gauge`
 
+Or use standalone browser version [gauge.min.js](gauge.min.js), using global `Gague` class.
+
+Don’t forget to include [index.css](gauge.min.js) and [arrow.svg](arrow.svg).
+
 
 ## Example
 
@@ -43,9 +47,9 @@ Current gauge percent value, `0..100`.
 |---|---|---|
 | `angle` | `[150, 390]` | Start and end angles defining gauge’s aperture |
 | `values` | `{0: 'start', 100: 'end'}` | Dict of labels corresponding to percentage values |
-| `colors` | `{0:'gray', 70:'orange', 90:'red'}` | Dict of colors corresponding to percentage |
-| `marks` | [0,10,..100] | List of marks |
-| `value` | `0` | Initial percentage value |
+| `colors` | `{0:'gray', 70:'orange', 90:'red'}` | Dict of colors corresponding to percentage values |
+| `marks` | `[0,10,..100]` | List of marks, corresponding to percentage |
+| `value` | `0` | Initial value |
 
 
 # CSS
