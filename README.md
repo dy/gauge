@@ -2,9 +2,9 @@
 
 A simple circular gauge indicator component.
 
-![Preview](https://rawgit.com/dfcreative/gauge/master/preview.png)
+![Preview](https://cdn.rawgit.com/dfcreative/gauge/master/preview.png)
 
-[Live demo](https://rawgit.com/dfcreative/gauge/d9bcf65f3bf0a4e6e52fb8add5bc6f5dc3bba1c5/test/index.html).
+[Live demo](https://cdn.rawgit.com/dfcreative/gauge/d9bcf65f3bf0a4e6e52fb8add5bc6f5dc3bba1c5/test/index.html).
 
 
 ## Installation
